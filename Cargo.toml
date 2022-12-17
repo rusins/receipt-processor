@@ -8,3 +8,13 @@ edition = "2021"
 
 [dependencies]
 clap = { version = "4.0.29", features = ["derive"] }
+
+
+[[bin]]
+name="receipt-processor"
+path="src/main.rs"
+
+# This is here so that doc tests run. See https://github.com/rust-lang/rust/issues/50784#issuecomment-653895749
+[lib]
+name="receipt_processor"
+path="src/lib.rs"
