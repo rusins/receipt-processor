@@ -47,6 +47,8 @@ pub fn summary(receipts: Vec<Receipt>) {
         println!();
     }
 
+    // Magic constants appear here because this was the final code I needed to answer my problem.
+    // Delete this if you are using this for your own purposes.
     let raitis_debt = spending["oskars"]["r"] + spending["oskars"]["a"] / 2;
     let oskars_debt = spending["raitis"]["o"] + spending["raitis"]["a"] / 2;
     println!("Raitis debt to Oscar: {} GBP", print_price(raitis_debt));
