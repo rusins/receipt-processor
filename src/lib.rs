@@ -2,3 +2,4 @@
 //mod receipt;
 pub mod receipt;
 pub mod price_printer;
+pub mod accounting;

@@ -1,18 +1,17 @@
-use std::collections::HashSet;
 use std::fs;
 use std::path::PathBuf;
 use std::process::Command;
 use std::str;
 
 use clap::Parser;
-use receipt_processor::price_printer::print_price;
+use receipt_processor::accounting;
 
 use receipt_processor::receipt::Receipt;
 
 #[derive(Parser)]
 struct CliArguments {
     // Receipt file or folder in which to find receipt files
-    path: std::path::PathBuf,
+    path: PathBuf,
 }
 
 fn main() -> std::io::Result<()> {
@@ -49,16 +48,7 @@ fn main() -> std::io::Result<()> {
         }
     }
 
-    // Output most expensive check
-    receipts.sort_by(|a, b| a.total_spent().cmp(&b.total_spent()));
-    let mut consumers = HashSet::new();
-    let mut buyers = HashSet::new();
-    for r in &receipts {
-        buyers.insert(r.purchaser.clone());
-        consumers.extend(r.recipients())
-    }
-    println!("All people who made purchases: {}", buyers.iter().fold(String::new(), |acc, p| acc + ", " + p));
-    println!("All people who received items: {}", consumers.iter().fold(String::new(), |acc, p| acc + ", " + p));
+    accounting::summary(receipts);
 
     Result::Ok(())
 }
